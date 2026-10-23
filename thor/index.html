@@ -8,6 +8,11 @@ html[data-page-theme] body { margin: 0; background: inherit; color: inherit; }
 /* The reveal exposes the footer's surface around the clipped page. Keep this
    theme-aware even though the critical selector outranks the loaded styles. */
 html[data-page-theme] body.is-footer-revealing { background: var(--footer-reveal-background, #f5f5f3); }
+
+/* The new home paints its opening frame before its runtime and shared CSS. */
+body.prototype .proto-stage{position:fixed;inset:0;height:100svh;overflow:hidden}
+body.prototype .hero-poster{position:absolute;inset:0;pointer-events:none}
+body.prototype .hero-poster img{display:block;width:100%;height:100%;object-fit:cover}
 </style>
 
   <meta charset="UTF-8">
@@ -22,14 +27,14 @@ html[data-page-theme] body.is-footer-revealing { background: var(--footer-reveal
   <link rel="stylesheet" href="/astreia-preview/styles/production.css">
   <link rel="stylesheet" href="/astreia-preview/styles/footer-reveal.css">
   <script type="module" crossorigin src="/astreia-preview/assets/modulepreload-polyfill-B5Qt9EMX.js"></script>
-  <script type="module" crossorigin src="/astreia-preview/assets/app-CScVoxpN.js"></script>
+  <script type="module" crossorigin src="/astreia-preview/assets/app-DxKocRVH.js"></script>
   <link rel="stylesheet" crossorigin href="/astreia-preview/assets/app-CiDxS9Dx.css">
   <link rel="stylesheet" crossorigin href="/astreia-preview/assets/site-DRN-EmIl.css">
 </head>
 <body class="inner-page product-body textured-page" data-page="thor-xr-1">
   <a class="skip-link" href="#swap">Skip to content</a>
   <header class="site-nav">
-      <a class="brand" href="/#factory" aria-label="Astreia home"
+      <a class="brand" href="/astreia-preview/#factory" aria-label="Astreia home"
         ><img
           src="/astreia-preview/brand/v3_icon_letter_white.svg"
           width="723"
@@ -84,7 +89,7 @@ html[data-page-theme] body.is-footer-revealing { background: var(--footer-reveal
         <div class="product-detail__copy"><p class="product-eyebrow">The payload comes first</p><h2 id="thor-payload-title" data-reveal>Precious cargo.<br>Purposeful return.</h2><p>Every mission starts with what needs to come back. Talk to us about your payload, its handling needs and the return you are planning.</p><a class="product-link" href="/astreia-preview/contact/">Join the mission <span aria-hidden="true">↗</span></a></div>
       </section>
       <section class="product-section product-pair" aria-labelledby="thor-pair-title">
-        <div><p class="product-eyebrow">One connected mission</p><h2 id="thor-pair-title" data-reveal>Meet the factory<br>above it all.</h2><div class="product-pair__actions"><a class="product-link" href="/astreia-preview/tessera-1/">Explore Tessera <span aria-hidden="true">↗</span></a><a class="product-link" href="/#payload">Follow the mission <span aria-hidden="true">↗</span></a></div></div>
+        <div><p class="product-eyebrow">One connected mission</p><h2 id="thor-pair-title" data-reveal>Meet the factory<br>above it all.</h2><div class="product-pair__actions"><a class="product-link" href="/astreia-preview/tessera-1/">Explore Tessera <span aria-hidden="true">↗</span></a><a class="product-link" href="/astreia-preview/#payload">Follow the mission <span aria-hidden="true">↗</span></a></div></div>
         <img class="product-pair__art" src="/astreia-preview/story-2d/tessera-docking/tessera-frontal.webp" alt="Tessera-1 orbital platform" width="2400" height="1787" loading="lazy" decoding="async">
       </section>
     </main>

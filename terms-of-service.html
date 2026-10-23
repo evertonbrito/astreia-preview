@@ -8,6 +8,11 @@ html[data-page-theme] body { margin: 0; background: inherit; color: inherit; }
 /* The reveal exposes the footer's surface around the clipped page. Keep this
    theme-aware even though the critical selector outranks the loaded styles. */
 html[data-page-theme] body.is-footer-revealing { background: var(--footer-reveal-background, #f5f5f3); }
+
+/* The new home paints its opening frame before its runtime and shared CSS. */
+body.prototype .proto-stage{position:fixed;inset:0;height:100svh;overflow:hidden}
+body.prototype .hero-poster{position:absolute;inset:0;pointer-events:none}
+body.prototype .hero-poster img{display:block;width:100%;height:100%;object-fit:cover}
 </style>
 
   <meta charset="UTF-8">
@@ -21,14 +26,14 @@ html[data-page-theme] body.is-footer-revealing { background: var(--footer-reveal
   <link rel="stylesheet" href="/astreia-preview/styles/production.css">
   <link rel="stylesheet" href="/astreia-preview/styles/footer-reveal.css">
   <script type="module" crossorigin src="/astreia-preview/assets/modulepreload-polyfill-B5Qt9EMX.js"></script>
-  <script type="module" crossorigin src="/astreia-preview/assets/app-CScVoxpN.js"></script>
+  <script type="module" crossorigin src="/astreia-preview/assets/app-DxKocRVH.js"></script>
   <link rel="stylesheet" crossorigin href="/astreia-preview/assets/app-CiDxS9Dx.css">
   <link rel="stylesheet" crossorigin href="/astreia-preview/assets/site-DRN-EmIl.css">
 </head>
 <body class="inner-page official-page is-hero-light legal-light" data-page="terms-of-service">
 <a class="skip-link" href="#swap">Skip to content</a>
 <header class="site-nav">
-      <a class="brand" href="/#factory" aria-label="Astreia home"
+      <a class="brand" href="/astreia-preview/#factory" aria-label="Astreia home"
         ><img
           src="/astreia-preview/brand/v3_icon_letter_white.svg"
           width="723"

@@ -1,5 +1,5 @@
 import"./modulepreload-polyfill-B5Qt9EMX.js";import{L as c}from"./lenis-CYo8HTSz.js";const p=`
-@font-face{font-family:HelveticaNow;src:url("/fonts/helvetica-now/HelveticaNowDisplay.woff2") format("woff2");font-weight:100 900;font-display:swap}
+@font-face{font-family:HelveticaNow;src:url("/astreia-preview/fonts/helvetica-now/HelveticaNowDisplay.woff2") format("woff2");font-weight:100 900;font-display:swap}
 html,body{margin:0;background:#000;color:#f4f2ec;font-family:HelveticaNow,Helvetica,Arial,sans-serif}
 .ot-nav{position:fixed;z-index:5;top:0;left:0;padding:calc(24px + env(safe-area-inset-top,0px)) 3.8vw}
 .ot-nav img{width:117px;height:auto;display:block}

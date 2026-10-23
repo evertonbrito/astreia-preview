@@ -8,6 +8,11 @@ html[data-page-theme] body { margin: 0; background: inherit; color: inherit; }
 /* The reveal exposes the footer's surface around the clipped page. Keep this
    theme-aware even though the critical selector outranks the loaded styles. */
 html[data-page-theme] body.is-footer-revealing { background: var(--footer-reveal-background, #f5f5f3); }
+
+/* The new home paints its opening frame before its runtime and shared CSS. */
+body.prototype .proto-stage{position:fixed;inset:0;height:100svh;overflow:hidden}
+body.prototype .hero-poster{position:absolute;inset:0;pointer-events:none}
+body.prototype .hero-poster img{display:block;width:100%;height:100%;object-fit:cover}
 </style>
 
     <meta charset="UTF-8" />
@@ -17,29 +22,23 @@ html[data-page-theme] body.is-footer-revealing { background: var(--footer-reveal
       name="description"
       content="Follow a mission from Earth to orbit and home again. Tessera–1 orbital manufacturing and Thor XR–1 return, connected by Astreia."
     />
-    <meta name="theme-color" content="#080a09" />
+    <meta name="theme-color" content="#050608" />
     <meta name="robots" content="noindex,nofollow" />
     <link rel="icon" href="/astreia-preview/brand/favicon.svg" type="image/svg+xml" />
-    <link
-      rel="preload"
-      href="/astreia-preview/fonts/helvetica-now/HelveticaNowDisplay.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
-    <link rel="preload" as="image" href="/astreia-preview/story-2d/factory/desktop.webp" media="(min-aspect-ratio: 1/1)" fetchpriority="high" />
-    <link rel="preload" as="image" href="/astreia-preview/story-2d/factory/portrait.webp" media="(max-aspect-ratio: 1/1)" fetchpriority="high" />
+    <link rel="preload" href="/astreia-preview/fonts/helvetica-now/HelveticaNowDisplay.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" as="image" href="/astreia-preview/prototype/hero-poster/landscape.webp" media="(min-aspect-ratio: 1/1)" fetchpriority="high" />
+    <link rel="preload" as="image" href="/astreia-preview/prototype/hero-poster/portrait.webp" media="(max-aspect-ratio: 1/1)" fetchpriority="high" />
     <link rel="stylesheet" href="/astreia-preview/styles/production.css" />
     <link rel="stylesheet" href="/astreia-preview/styles/footer-reveal.css" />
     <script type="module" crossorigin src="/astreia-preview/assets/modulepreload-polyfill-B5Qt9EMX.js"></script>
-    <script type="module" crossorigin src="/astreia-preview/assets/app-CScVoxpN.js"></script>
+    <script type="module" crossorigin src="/astreia-preview/assets/app-DxKocRVH.js"></script>
     <link rel="stylesheet" crossorigin href="/astreia-preview/assets/app-CiDxS9Dx.css">
     <link rel="stylesheet" crossorigin href="/astreia-preview/assets/site-DRN-EmIl.css">
   </head>
-  <body class="is-ready" data-page="home">
+  <body class="prototype is-ready" data-page="home">
     <a class="skip-link" href="#site-footer">Skip the journey</a>
     <header class="site-nav">
-      <a class="brand" href="/#factory" aria-label="Astreia home"
+      <a class="brand" href="/astreia-preview/#factory" aria-label="Astreia home"
         ><img
           src="/astreia-preview/brand/v3_icon_letter_white.svg"
           width="723"
@@ -69,61 +68,100 @@ html[data-page-theme] body.is-footer-revealing { background: var(--footer-reveal
       >
     </header>
     <div id="swap" tabindex="-1">
-    <svg class="cinematic-filter-defs" width="0" height="0" aria-hidden="true" focusable="false"><defs><filter id="cinematic-grade" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values=".98 .014 .006 0 .004  .008 .982 .01 0 .003  .006 .012 .982 0 .002  0 0 0 1 0"/></filter></defs></svg>
-
-      <main class="motion-main">
-          <div class="cinema">
-            <div
-              id="mission-canvas"
-              data-renderer="factory-2d"
-              role="img"
-              aria-label="A painted journey from Earth to orbit and home again"
-            >
-              <picture class="factory-artwork" aria-hidden="true">
-                <source media="(max-aspect-ratio:1/1)" srcset="/astreia-preview/story-2d/factory/portrait.webp">
-                <img src="/astreia-preview/story-2d/factory/desktop.webp" alt="" fetchpriority="high" decoding="async" draggable="false">
-              </picture>
-            </div>
-            <div class="film-grain" aria-hidden="true"></div>
-            <div class="heat-edges" aria-hidden="true"></div>
-            <div class="mission-hud" aria-hidden="true">
-              <span class="mission-hud-index">01 / 15</span>
-              <span class="mission-hud-label">A new beginning</span>
-              <span class="mission-hud-track"><i></i></span>
-            </div>
-            <div class="story-copy">
-              <h1 id="story-title">Extraordinary. From the start.</h1>
-              <p class="story-description">A purpose-built platform. A payload full of possibility.</p>
-            </div>
-            <p class="scroll-invitation" aria-hidden="true">
-              <span class="scroll-invitation-label">Scroll to Start</span>
-              <svg viewBox="0 0 20 32" width="20" height="32" fill="none" aria-hidden="true">
-                <path class="scroll-invitation-trail" d="M10 2v25" />
-                <path d="m5 22 5 5 5-5" />
-              </svg>
-            </p>
-            <div class="load-status" role="status">
-              Preparing the mission <span>···</span>
-            </div>
-          </div>
-        <section
-          class="story-track"
-          id="journey"
-          aria-label="From Earth to orbit and home again"
-        >
-          <div class="chapter-anchors" aria-hidden="true"></div>
-        </section>
-      </main>
-    <dialog class="chapter-dialog" aria-labelledby="chapter-dialog-title">
-      <div class="dialog-head">
-        <span id="chapter-dialog-title">Explore the mission</span
-        ><button class="chapter-close" aria-label="Close chapters">
-          Close ×
-        </button>
+    <main class="proto-main">
+      <div class="proto-stage" aria-live="polite">
+        <canvas class="proto-canvas" aria-label="Astreia mission"></canvas>
+        <picture class="hero-poster" aria-hidden="true">
+          <source media="(max-aspect-ratio:1/1)" srcset="/astreia-preview/prototype/hero-poster/portrait.webp">
+          <img src="/astreia-preview/prototype/hero-poster/landscape.webp" alt="" fetchpriority="high" decoding="async" draggable="false">
+        </picture>
+        <div class="proto-vignette" aria-hidden="true"></div>
+        <div class="story-copy">
+          <h1 id="story-title"></h1>
+          <p class="story-description"></p>
+        </div>
+        <p class="scroll-cue" aria-hidden="true">Scroll to begin ↓</p>
+        <div class="mission-hud" aria-hidden="true">
+          <span class="mission-hud-index">01 / 15</span>
+          <span class="mission-hud-label"></span>
+          <span class="mission-hud-track"><i></i></span>
+        </div>
+        <p class="proto-fallback" hidden>WebGL is unavailable. Explore <a href="/astreia-preview/tessera-1/">Tessera-1</a> and <a href="/astreia-preview/thor-xr-1/">Thor XR-1</a>.</p>
       </div>
-      <h2>Every step.<br />One purpose.</h2>
-      <nav class="chapter-list" aria-label="Mission chapters"></nav>
-    </dialog>
+      <div class="proto-track" id="journey" aria-hidden="true"><div class="chapter-anchors"></div></div>
+      <!-- After the mission: the company, in the FMI/ETH pattern. Copy from the
+           Vision, About, Tessera, Thor and OPERA pages; no invented figures. -->
+      <div class="proto-content">
+        <section class="pc-statement" aria-labelledby="pc-statement-title">
+          <p class="pc-kicker" data-reveal>The point</p>
+          <h2 id="pc-statement-title" data-reveal>Launch made orbit reachable.<br><span>Manufacturing makes it valuable.</span><br><span>Return makes that value usable.</span></h2>
+          <p class="pc-lede" data-reveal>Astreia designs and builds the infrastructure that turns orbit into a place instead of a passage. Up. Transform. Down. Commanded from one place.</p>
+        </section>
+
+        <section class="pc-systems" aria-labelledby="pc-systems-title">
+          <div class="pc-head">
+            <p class="pc-kicker" data-reveal>How we get there</p>
+            <h2 id="pc-systems-title" data-reveal>Three systems,<br>one operating model.</h2>
+          </div>
+          <div class="pc-cards">
+            <a class="pc-card" href="/astreia-preview/tessera-1/" data-reveal>
+              <div class="pc-media"><img src="/astreia-preview/story-2d/tessera-docking/tessera-frontal.webp" alt="Tessera-1 orbital platform" loading="lazy" decoding="async"></div>
+              <span class="pc-eyebrow">01 · Orbital platform</span>
+              <h3>Tessera-1</h3>
+              <p>The factory: a free-flying orbital manufacturing platform built from sealed hexagonal cells, each running one process.</p>
+              <span class="pc-link">Explore Tessera-1 <i aria-hidden="true">→</i></span>
+            </a>
+            <a class="pc-card" href="/astreia-preview/thor-xr-1/" data-reveal>
+              <div class="pc-media pc-media--wide"><img src="/astreia-preview/story-2d/thor-illustrated/normal-10.webp" alt="Thor XR-1 return vehicle" loading="lazy" decoding="async"></div>
+              <span class="pc-eyebrow">02 · Return vehicle</span>
+              <h3>Thor XR-1</h3>
+              <p>The delivery vehicle: takes what orbit produces, or any payload that needs to come down, and flies it to a point chosen before launch.</p>
+              <span class="pc-link">Explore Thor XR-1 <i aria-hidden="true">→</i></span>
+            </a>
+            <a class="pc-card" href="/astreia-preview/opera/" data-reveal>
+              <div class="pc-media pc-media--screen"><img src="/astreia-preview/products/opera/telemetry-1600.webp" alt="OPERA mission software, telemetry view with example data" loading="lazy" decoding="async"></div>
+              <span class="pc-eyebrow">03 · Mission software</span>
+              <h3>OPERA</h3>
+              <p>The command layer: mission software orchestrating planning, execution and autonomy, so the loop runs as one system instead of three.</p>
+              <span class="pc-link">Explore OPERA <i aria-hidden="true">→</i></span>
+            </a>
+          </div>
+        </section>
+
+        <section class="pc-loop" aria-labelledby="pc-loop-title">
+          <p class="pc-kicker" data-reveal>Logistics is a round trip</p>
+          <h2 id="pc-loop-title" data-reveal>Up. Transform. Down.</h2>
+          <ol class="pc-steps">
+            <li data-reveal><span>01 / Up</span><strong>Earth</strong><p>Raw material and vehicles leave on a scheduled rideshare.</p></li>
+            <li data-reveal><span>02 / Transform</span><strong>Orbit · Tessera-1</strong><p>Value is created in microgravity.</p></li>
+            <li data-reveal><span>03 / Down · Thor XR-1</span><strong>Chosen point</strong><p>Finished product comes down to a point chosen before launch.</p></li>
+          </ol>
+        </section>
+
+        <section class="pc-principles" aria-labelledby="pc-principles-title">
+          <div class="pc-head">
+            <p class="pc-kicker" data-reveal>How we build</p>
+            <h2 id="pc-principles-title" data-reveal>Fast isn't enough.<br>We go hypersonic.</h2>
+          </div>
+          <div class="pc-list" data-reveal>
+            <details><summary>Flight data over paperwork</summary><p>Analysis is where confidence goes to be overestimated. We fly to find out, and we design vehicles to fly often rather than perfectly.</p></details>
+            <details><summary>Constraints are the point</summary><p>We design to the rideshare envelope, standard interfaces, commodity launch. Orbital logistics should work like terrestrial logistics: scheduled, boring, cheap.</p></details>
+            <details><summary>Unproven risks don't get stacked</summary><p>Every flight exists to answer specific questions with flight data. We decouple risks, retire them in order, and refuse to bet a mission on two miracles at once.</p></details>
+            <details><summary>Failures get published</summary><p>We share test results as they happen, including the ones that don't go our way, because the failures are where the engineering actually lives.</p></details>
+            <details><summary>Built for missions that cannot fail</summary><p>Small teams, sovereign supply chains, and hardware accountable to the people who depend on it.</p></details>
+          </div>
+        </section>
+
+        <section class="pc-cta" aria-labelledby="pc-cta-title">
+          <p class="pc-kicker" data-reveal>Join the mission</p>
+          <h2 id="pc-cta-title" data-reveal>If it reads as an invitation,<br>come build the road up.</h2>
+          <div class="pc-actions" data-reveal>
+            <a class="pc-button" href="/astreia-preview/contact/">Join the mission <i aria-hidden="true">↗</i></a>
+            <a class="pc-ghost" href="/astreia-preview/vision/">Read our vision</a>
+          </div>
+        </section>
+      </div>
+    </main>
     </div>
     <div id="footer-mount"></div>
     <noscript
