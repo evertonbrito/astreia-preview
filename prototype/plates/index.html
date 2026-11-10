@@ -8,12 +8,14 @@
   html, body { margin: 0; background: #080a09; color: #e9e7dc; font: 12px/1.4 HelveticaNow, Helvetica, Arial, sans-serif; }
   #track { height: 400svh; }
   canvas { position: fixed; inset: 0; width: 100vw; height: 100svh; display: block; }
+  #v { pointer-events: none; }
   #hud { position: fixed; left: 16px; bottom: 16px; letter-spacing: .12em; text-transform: uppercase; opacity: .8; pointer-events: none; }
   #hud b { color: #f2632a; font-weight: 500; }
 </style>
 </head>
 <body>
 <canvas id="c"></canvas>
+<canvas id="v"></canvas>
 <div id="hud"><b>Pilot</b> · layered plate · <span id="t">t 1.600</span></div>
 <div id="track"></div>
 <script type="module">
@@ -72,6 +74,27 @@ const loc = gl.getAttribLocation(pg, 'p'); gl.enableVertexAttribArray(loc); gl.v
 const U = n => gl.getUniformLocation(pg, n);
 const smooth = (a, b, x) => { const t = Math.min(Math.max((x - a) / (b - a), 0), 1); return t * t * (3 - 2 * t); };
 const OVER = 1.2, t0 = performance.now();
+// Moving layer: vehicle, strongback and launch FX rendered from the plate's fixed
+// camera on a transparent film (render-hero-sequence.py --vehicle). Frames load in
+// the background; the nearest loaded frame is drawn with the plate's own crop.
+const vc = document.getElementById('v'), vx = vc.getContext('2d');
+let vmeta = null; const vimg = new Map();
+fetch(new URL('vehicle/vehicle.json', base)).then(r => r.ok ? r.json() : null).then(m => {
+  if (!m) return; vmeta = m;
+  for (const f of m.frames) { const i = new Image(); i.decoding = 'async'; i.onload = () => vimg.set(f, i); i.src = new URL(`vehicle/v${String(f).padStart(3, '0')}.webp`, base); }
+}).catch(() => {});
+function drawVehicle(t, cover, pan, W, H) {
+  if (vc.width !== W || vc.height !== H) { vc.width = W; vc.height = H; }
+  vx.clearRect(0, 0, W, H);
+  if (!vmeta || !vimg.size) return;
+  const want = vmeta.f0 + (t - vmeta.t0) / vmeta.step;
+  let best = null, bd = 1e9;
+  for (const [f, im] of vimg) { const d = Math.abs(f - want); if (d < bd) { bd = d; best = im; } }
+  if (!best || bd > 6) return;
+  const iw = best.naturalWidth, ih = best.naturalHeight, k = .8;   // mid-depth parallax, as the pad around the stack
+  const sx = (.5 - cover[0] / 2 + pan[0] * k) * iw, sy = (.5 - cover[1] / 2 + pan[1] * k) * ih;
+  vx.drawImage(best, sx, sy, cover[0] * iw, cover[1] * ih, 0, 0, W, H);
+}
 let tStory = 1.6, shown = 1.6;
 addEventListener('scroll', () => { const max = document.documentElement.scrollHeight - innerHeight; tStory = 1.6 + .45 * (max > 0 ? scrollY / max : 0); }, { passive: true });
 function frame(now) {
@@ -86,7 +109,9 @@ function frame(now) {
   gl.uniform2f(U('cover'), cover[0], cover[1]);
   // The camera rises with the climb (section3_camera: .7 · climb): pan within the margin.
   const room = (1 - cover[1]) / 2;
-  gl.uniform2f(U('pan'), 0, -room * Math.min(1, climb / 120) * .9);
+  const pan = [0, -room * Math.min(1, climb / 120) * .9];
+  gl.uniform2f(U('pan'), pan[0], pan[1]);
+  drawVehicle(t, cover, pan, W, H);
   gl.uniform4f(U('w'), 1 - .35 * thrust, 1, 3.2 * thrust, 1 - .5 * thrust);
   gl.uniform1f(U('time'), (now - t0) / 1000); gl.uniform1f(U('heat'), thrust);
   gl.uniform1f(U('exposure'), 2 ** meta.exposure_ev);
