@@ -13,6 +13,16 @@ html[data-page-theme] body.is-footer-revealing { background: var(--footer-reveal
 body.prototype .proto-stage{position:fixed;inset:0;height:100svh;overflow:hidden}
 body.prototype .hero-poster{position:absolute;inset:0;pointer-events:none}
 body.prototype .hero-poster img{display:block;width:100%;height:100%;object-fit:cover}
+/* Until the runtime and its stylesheet are in (body.is-styled), the home shows
+   only the navbar and the opening frame: no unstyled captions, closing section
+   or footer underneath, at any restored scroll position. */
+body.prototype{background:#050608}
+body.prototype .proto-track{height:2970svh}
+body.prototype:not(.is-styled) .proto-stage>:not(.hero-poster),
+body.prototype:not(.is-styled) .proto-content,
+body.prototype:not(.is-styled) #footer-mount,
+body.prototype:not(.is-styled) .footer,
+body.prototype:not(.is-styled) .skip-link{visibility:hidden}
 </style>
 
   <meta charset="UTF-8">
