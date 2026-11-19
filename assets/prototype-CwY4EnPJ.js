@@ -1,0 +1,1 @@
+import"./modulepreload-polyfill-B5Qt9EMX.js";import{mountPrototype as t}from"./main-C_BtPqa0.js";import"./site-B5JUKi-Z.js";import"./lenis-CYo8HTSz.js";import"./research-chapters-BnA_yZVm.js";const o=t();location.hash&&o.goHash(location.hash);addEventListener("hashchange",()=>o.goHash(location.hash));addEventListener("pagehide",()=>o.destroy(),{once:!0});
